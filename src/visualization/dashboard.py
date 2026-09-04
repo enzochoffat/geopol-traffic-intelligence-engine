@@ -387,40 +387,6 @@ document.querySelectorAll(".quick-btn").forEach(btn => {{
 # FONCTIONS INTERNES
 # ════════════════════════════════════════════════
 
-def _build_map_fragment(df: pd.DataFrame) -> str:
-    """Génère la carte Folium et retourne son HTML interne."""
-
-    center_lat = df["latitude"].mean()
-    center_lon = df["longitude"].mean()
-    m = folium.Map(location=[center_lat, center_lon], zoom_start=5)
-
-    in_flight = df[df["on_ground"] == False]
-    on_ground = df[df["on_ground"] == True]
-
-    for _, row in in_flight.iterrows():
-        folium.CircleMarker(
-            location=[row["latitude"], row["longitude"]],
-            radius=3,
-            color="#3498db",
-            fill=True,
-            fill_opacity=0.7,
-            tooltip=f"✈ {row.get('callsign','?')} | {row['origin_country']} | {row['altitude']:.0f}m",
-        ).add_to(m)
-
-    for _, row in on_ground.iterrows():
-        folium.CircleMarker(
-            location=[row["latitude"], row["longitude"]],
-            radius=4,
-            color="#e67e22",
-            fill=True,
-            fill_opacity=0.8,
-            tooltip=f"🅿 {row.get('callsign','?')} | {row['origin_country']}",
-        ).add_to(m)
-
-    # Retourne uniquement le contenu HTML interne de la carte
-    return m._repr_html_()
-
-
 def _build_chart_fragment(ts: pd.DataFrame, anomalies: pd.DataFrame) -> str:
     """Génère le graphe Plotly et retourne son HTML."""
 
@@ -476,36 +442,6 @@ def _build_chart_fragment(ts: pd.DataFrame, anomalies: pd.DataFrame) -> str:
         include_plotlyjs="cdn",
         config={"responsive": True},
     )
-
-
-def _build_metrics_banner(df: pd.DataFrame, ts: pd.DataFrame) -> str:
-    """Génère la barre de métriques en haut du dashboard."""
-
-    total     = len(df)
-    in_flight = int((~df["on_ground"]).sum())
-    countries = int(df["origin_country"].nunique())
-    alt_mean  = df["altitude"].mean()
-    snapshots = len(ts)
-
-    cards = [
-        (str(total),        "Avions détectés"),
-        (str(in_flight),    "En vol"),
-        (str(total - in_flight), "Au sol"),
-        (str(countries),    "Pays"),
-        (f"{alt_mean:.0f}m", "Altitude moy."),
-        (str(snapshots),    "Snapshots"),
-    ]
-
-    cards_html = ""
-    for value, label in cards:
-        cards_html += f"""
-        <div class="metric-card">
-            <div class="value">{value}</div>
-            <div class="label">{label}</div>
-        </div>"""
-
-    return f'<div class="metrics-bar">{cards_html}</div>'
-
 
 def _build_correlation_table(correlations: pd.DataFrame) -> str:
     """Génère le tableau HTML des corrélations."""
