@@ -124,7 +124,7 @@ def load_latest_global(data_dir: Path = DATA_DIR) -> dict[str, pd.DataFrame]:
 
     result = {}
     for code, filepath in region_files.items():
-        df = pd.read_csv(filepath)
+        df = pd.read_csv(filepath, parse_dates=["timestamp"])
         if not df.empty:
             df["region"] = code
         result[code] = df

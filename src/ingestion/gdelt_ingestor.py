@@ -48,7 +48,7 @@ def _build_gdelt_url(dt: datetime) -> str:
     """
     rounded = _round_to_15min(dt)
     timestamp = rounded.strftime("%Y%m%d%H%M%S")
-    return f"http://data.gdeltproject.org/gdeltv2/{timestamp}.export.CSV.zip"
+    return f"https://data.gdeltproject.org/gdeltv2/{timestamp}.export.CSV.zip"
 
 
 def fetch_gdelt_events(dt: datetime = None) -> pd.DataFrame:

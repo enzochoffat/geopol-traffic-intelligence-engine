@@ -42,7 +42,7 @@ def correlate_event_with_traffic(
     avg_after  = after["total_aircraft"].mean()  if len(after)  > 0 else None
 
     # ── Calcule la variation ──
-    if avg_before and avg_after and avg_before > 0:
+    if avg_before is not None and avg_after is not None and avg_before > 0:
         delta_pct = ((avg_after - avg_before) / avg_before) * 100
     else:
         delta_pct = None
@@ -51,7 +51,7 @@ def correlate_event_with_traffic(
     alt_before = before["altitude_mean"].mean() if len(before) > 0 else None
     alt_after  = after["altitude_mean"].mean()  if len(after)  > 0 else None
 
-    if alt_before and alt_after and alt_before > 0:
+    if alt_before is not None and alt_after is not None and alt_before > 0:
         alt_delta_pct = ((alt_after - alt_before) / alt_before) * 100
     else:
         alt_delta_pct = None
@@ -114,7 +114,7 @@ def _compute_signal(
 
     # Normalise Goldstein : [-10, +10] → [1, 0]
     # Plus c'est conflictuel (négatif), plus le poids est fort
-    goldstein_weight = (10 - goldstein) / 20
+    goldstein_weight = max(0.0, min(1.0, (10 - goldstein) / 20))
 
     # Normalise la variation trafic
     # Une chute de 20%+ = signal max

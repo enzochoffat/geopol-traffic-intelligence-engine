@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 # CORS = autorise le dashboard HTML (fichier local) à appeler l'API
 # Sans ça le navigateur bloque les requêtes cross-origin
-CORS(app)
+CORS(app, origins=["http://localhost:*, http://127.0.0.1:*"])
 
 # ── Cache en mémoire ──
 # On charge les données une fois au démarrage
