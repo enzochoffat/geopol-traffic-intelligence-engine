@@ -12,6 +12,8 @@ from storage.data_store import load_all_flights, load_flights
 from analysis.timeseries_analyzer import build_timeseries, detect_anomalies
 from analysis.air_traffic_analyser import compute_basic_metrics, compute_country_breakdown
 from agent.llm_analyst import ask, _build_context
+from utils.paths import DATA_RAW as _DATA_RAW
+from utils.paths import DATA_REPORTS as _DATA_REPORTS
 
 app = Flask(__name__)
 
@@ -28,13 +30,6 @@ _cache = {
     "correlations" : None,
 }
 
-_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-_DATA_RAW     = _PROJECT_ROOT / "data" / "raw"
-
-if not _DATA_RAW.exists():
-    _DATA_RAW = Path("data/raw")
-
-
 def _load_data():
     csv_files = sorted(_DATA_RAW.glob("flights_*.csv"))
     if not csv_files:
@@ -44,7 +39,7 @@ def _load_data():
     df_all              = load_all_flights(_DATA_RAW)
     _cache["ts"]        = build_timeseries(df_all)
 
-    corr_path = _PROJECT_ROOT / "data" / "reports" / "correlations.csv"
+    corr_path = _DATA_REPORTS / "correlations.csv"
     if corr_path.exists():
         import pandas as pd
         _cache["correlations"] = pd.read_csv(corr_path)

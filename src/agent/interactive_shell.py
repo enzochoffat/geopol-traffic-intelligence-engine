@@ -9,10 +9,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pandas as pd
-from pathlib import Path
-from llm_analyst import ask
+from agent.llm_analyst import ask
 from storage.data_store import load_all_flights, load_flights
 from analysis.timeseries_analyzer import build_timeseries
+from utils.paths import DATA_RAW, DATA_REPORTS
 
 
 # Questions prédéfinies accessibles par numéro
@@ -34,18 +34,18 @@ def run_shell():
     # ── Charge les données ──
     print("\n[Shell] Chargement des données...")
 
-    csv_files = sorted(Path("data/raw").glob("flights_*.csv"))
+    csv_files = sorted(DATA_RAW.glob("flights_*.csv"))
     if not csv_files:
         print("[Shell] Aucune donnée. Lance d'abord : python main.py")
         return
 
     df_latest = load_flights(csv_files[-1])
-    df_all    = load_all_flights(Path("data/raw"))
+    df_all    = load_all_flights(DATA_RAW)
     ts        = build_timeseries(df_all)
 
     # Corrélations si disponibles
     correlations = None
-    corr_path    = Path("data/reports/correlations.csv")
+    corr_path    = DATA_REPORTS / "correlations.csv"
     if corr_path.exists():
         correlations = pd.read_csv(corr_path)
 

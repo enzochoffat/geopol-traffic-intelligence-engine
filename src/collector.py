@@ -8,6 +8,7 @@ from ingestion.adsb_ingestor import fetch_flights
 from storage.data_store import save_flights, load_flights
 from analysis.air_traffic_analyser import compute_basic_metrics
 from utils.config_loader import load_config
+from utils.paths import CONFIG_PATH
 
 # ── Gestion propre du Ctrl+C ──
 # Sans ça, Ctrl+C affiche une stacktrace moche
@@ -18,7 +19,8 @@ def _handle_exit(sig, frame):
 signal.signal(signal.SIGINT, _handle_exit)
 
 
-def run_collector(config_path: str = "config/settings.yaml"):
+
+def run_collector(config_path: str = CONFIG_PATH):
     """
     Boucle principale de collecte.
     Interroge OpenSky toutes les X secondes et sauvegarde chaque snapshot.

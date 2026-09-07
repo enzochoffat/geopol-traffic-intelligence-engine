@@ -7,8 +7,7 @@ from pathlib import Path
 from datetime import datetime
 
 from utils.regions import REGIONS, get_all_regions
-
-DASHBOARD_DIR = Path("data/maps")
+from utils.paths import MAPS_DIR
 
 
 def build_dashboard(
@@ -31,7 +30,7 @@ def build_dashboard(
         output_name   : nom du fichier HTML
     """
 
-    DASHBOARD_DIR.mkdir(parents=True, exist_ok=True)
+    MAPS_DIR.mkdir(parents=True, exist_ok=True)
 
     map_html     = _build_world_map(df_flights, regional_data)
     chart_html   = _build_chart_fragment(ts, anomalies)
@@ -377,7 +376,7 @@ document.querySelectorAll(".quick-btn").forEach(btn => {{
 </body>
 </html>"""
 
-    filepath = DASHBOARD_DIR / f"{output_name}.html"
+    filepath = MAPS_DIR / f"{output_name}.html"
     filepath.write_text(full_html, encoding="utf-8")
     print(f"[Dashboard] Généré → {filepath}")
     return filepath

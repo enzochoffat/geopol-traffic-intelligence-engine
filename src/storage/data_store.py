@@ -2,9 +2,7 @@ import pandas as pd
 from pathlib import Path
 from datetime import datetime
 from models.adsb_message import ADSBMessage
-
-# Dossier où on sauvegarde les données
-DATA_DIR = Path("data/raw")
+from utils.paths import DATA_RAW as DATA_DIR
 
 
 def save_flights(messages: list[ADSBMessage], suffix: str = "") -> Path:
@@ -70,7 +68,7 @@ def load_flights(filepath: Path) -> pd.DataFrame:
     print(f"[DataStore] {len(df)} avions chargés depuis {filepath}")
     return df
 
-def load_all_flights(data_dir: Path = Path("data/raw")) -> pd.DataFrame:
+def load_all_flights(data_dir: Path = DATA_DIR) -> pd.DataFrame:
     """
     Charge TOUS les fichiers CSV du dossier et les fusionne.
     Chaque fichier = un snapshot = un moment dans le temps.

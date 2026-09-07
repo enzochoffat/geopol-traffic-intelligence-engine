@@ -1,9 +1,7 @@
 import folium
 import pandas as pd
 from pathlib import Path
-
-# Dossier où on sauvegarde les cartes générées
-MAPS_DIR = Path("data/maps")
+from utils.paths import MAPS_DIR
 
 
 def build_flight_map(df: pd.DataFrame, output_name: str = "flights_map") -> Path:

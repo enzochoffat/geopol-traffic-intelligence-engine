@@ -6,6 +6,7 @@ et affiche un résumé global.
 from pathlib import Path
 from ingestion.global_ingestor import fetch_global_snapshot, build_global_summary
 from utils.regions import REGIONS, get_all_regions
+from utils.paths import DATA_RAW, DATA_REPORTS
 
 
 def main():
@@ -42,10 +43,10 @@ def main():
     print(f"{'TOTAL':<30} {summary['total_aircraft'].sum():>7}")
 
     # ── Sauvegarde résumé ──
-    out = Path("data/reports")
+    out = DATA_REPORTS
     out.mkdir(parents=True, exist_ok=True)
     summary.to_csv(out / "global_summary.csv", index=False)
-    print(f"\n[Main] Résumé sauvegardé → data/reports/global_summary.csv")
+    print(f"\n[Main] Résumé sauvegardé → {DATA_REPORTS}/global_summary.csv")
 
 
 if __name__ == "__main__":

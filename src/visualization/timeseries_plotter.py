@@ -2,8 +2,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
 from pathlib import Path
-
-MAPS_DIR = Path("data/maps")
+from utils.paths import MAPS_DIR
 
 
 def plot_timeseries(ts: pd.DataFrame, anomalies: pd.DataFrame = None) -> Path:

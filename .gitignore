@@ -16,3 +16,4 @@ data/reports/*.csv
 .env
 .env.*
 session-ses_fa22*
+src/geopol_traffic_intelligence_engine.egg-info/

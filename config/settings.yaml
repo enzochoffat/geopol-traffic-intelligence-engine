@@ -1,18 +1,21 @@
 # Zone géographique de collecte
 zone:
   name: "France"
-  lat_min: 2.0
-  lon_min: 45.0
-  lat_max: 22.0
-  lon_max: 83.0
+  lat_min: 41.0
+  lon_min: -5.5
+  lat_max: 51.5
+  lon_max: 10.0
 
 # Paramètres de collecte
 collection:
-  interval_seconds: 30   # toutes les 5 minutes
-  max_snapshots: 5      # 288 x 5min = 24h de données
+  interval_seconds: 300   # toutes les 5 minutes
+  max_snapshots: 288      # 288 x 5min = 24h de données
 
 # Chemins
 paths:
   raw_data: "data/raw"
   maps:     "data/maps"
   reports:  "data/reports"
+
+regions:
+  enable: ["EU_W", "EU_E", "RU", "ME", "AS_S", "AS_E", "NA", "SA", "AF", "UKR", "TWN", "PG"]

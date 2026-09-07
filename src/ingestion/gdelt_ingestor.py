@@ -4,6 +4,7 @@ import zipfile
 import io
 from datetime import datetime, timedelta
 from pathlib import Path
+from utils.paths import DATA_GDELT as GDELT_DATA_DIR
 
 # Colonnes GDELT qui nous intéressent
 # GDELT a 61 colonnes — on garde les utiles
@@ -29,8 +30,6 @@ GDELT_ALL_COLUMNS = [
     "ActionGeo_FeatureID",
     "DATEADDED", "SOURCEURL",
 ]
-
-GDELT_DATA_DIR = Path("data/gdelt")
 
 
 def _round_to_15min(dt: datetime) -> datetime:
