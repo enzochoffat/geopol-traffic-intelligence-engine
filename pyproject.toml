@@ -12,7 +12,9 @@ dependencies = [
     "plotly>=5.22",
     "flask>=3.1",
     "flask-cors>=4.2",
+    "flask-limiter>=3.0",
     "ollama>=0.3.0",
+    "tenacity>=0.17.0",
     ]
 [project.optional-dependencies]
 dev = [
@@ -29,7 +31,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src/geopol"]
 
 [tool.ruff]
 line-length = 100

@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: geopol-traffic-intelligence-engine
+Version: 0.1.0
+Summary: A traffic intelligence engine for geopolitical analysis.
+Requires-Python: >=3.11
+Requires-Dist: requests>=2.32.0
+Requires-Dist: pandas>=2.2
+Requires-Dist: numpy>=1.26
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: folium>=0.15.0
+Requires-Dist: plotly>=5.22
+Requires-Dist: flask>=3.1
+Requires-Dist: flask-cors>=4.2
+Requires-Dist: flask-limiter>=3.0
+Requires-Dist: ollama>=0.3.0
+Requires-Dist: tenacity>=0.17.0
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: pytest-cov>=4; extra == "dev"
+Requires-Dist: response>=0.0.4; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: types-PyYAML; extra == "dev"
